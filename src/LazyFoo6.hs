@@ -1,22 +1,23 @@
 {-# LANGUAGE OverloadedStrings  #-}
 
-module Main where
+module LazyFoo6 where
 
 import qualified SDL
 import           SDL.Vect
 import           Control.Monad                  ( unless )
-import Foreign.C.Types ( CInt )
-import qualified SDL.Image as SDLImg
+import           Foreign.C.Types                ( CInt )
+import qualified SDL.Image                     as SDLImg
 
-screenWidth,screenHeight :: Foreign.C.Types.CInt
+screenWidth, screenHeight :: Foreign.C.Types.CInt
 screenWidth = 800
 screenHeight = 600
 
 loadAndOptimize :: FilePath -> SDL.Surface -> IO SDL.Surface
 loadAndOptimize path surfaceToOptimizeFor = do
-  loadedSurface <- SDLImg.load $ "data/" ++ path
+  -- the only meaningful change from the previous lesson is to replace SDL.loadBMP with SDLImg.load, which supports a wide variety of formats.
+  loadedSurface       <- SDLImg.load $ "data/" ++ path
   formatToOptimizeFor <- SDL.surfaceFormat surfaceToOptimizeFor
-  convertedSurface <- SDL.convertSurface loadedSurface formatToOptimizeFor
+  convertedSurface    <- SDL.convertSurface loadedSurface formatToOptimizeFor
   SDL.freeSurface loadedSurface
   return convertedSurface
 
@@ -29,7 +30,7 @@ main = do
     "SDL Tutorial"
     SDL.defaultWindow { SDL.windowInitialSize = V2 screenWidth screenHeight }
 
-  screenSurface <- SDL.getWindowSurface window
+  screenSurface    <- SDL.getWindowSurface window
   convertedSurface <- loadAndOptimize "hello_world.bmp" screenSurface
 
   let loop = do
