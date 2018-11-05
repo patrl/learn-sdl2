@@ -1,6 +1,6 @@
 {-# LANGUAGE OverloadedStrings  #-}
 
-module Main where
+module LazyFoo5 where
 
 import qualified SDL
 import           SDL.Vect
@@ -45,3 +45,5 @@ main = do
   SDL.destroyWindow window
 
   SDL.quit
+
+

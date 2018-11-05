@@ -1,6 +1,5 @@
 {-# LANGUAGE OverloadedStrings  #-}
 {-# LANGUAGE LambdaCase #-}
-{-# LANGUAGE PatternSynonyms #-}
 
 module Main where
 
@@ -9,8 +8,9 @@ import Data.Maybe
 import Data.Monoid
 import           SDL.Vect
 import           Control.Monad                  ( unless )
-import           Control.Concurrent             ( threadDelay )
+import Foreign.C.Types ( CInt )
 
+screenWidth,screenHeight :: Foreign.C.Types.CInt
 screenWidth = 800
 screenHeight = 600
 
@@ -25,7 +25,7 @@ main = do
   screenSurface <- SDL.getWindowSurface window
 
   [keyPressSurfaceDefault, keyPressSurfaceUp, keyPressSurfaceDown, keyPressSurfaceLeft, keyPressSurfaceRight] <-
-    mapM (SDL.loadBMP . ((++) "data/"))
+    mapM (SDL.loadBMP . (++) "data/")
         ["press.bmp", "up.bmp", "down.bmp", "left.bmp", "right.bmp"]
   let keyPressSurfaces =
         [ keyPressSurfaceDefault
@@ -49,7 +49,7 @@ main = do
                                      SDL.KeycodeLeft -> Last (Just keyPressSurfaceLeft)
                                      _ -> mempty
                              _ -> mempty) events
-        SDL.surfaceBlit currentSurface Nothing screenSurface Nothing
+        _ <- SDL.surfaceBlit currentSurface Nothing screenSurface Nothing
         SDL.updateWindowSurface window
         unless quit (loop currentSurface)
 
