@@ -1,4 +1,4 @@
-{ nixpkgs ? import <nixpkgs> {}, compiler ? "default", withHoogle ? true }:
+{ nixpkgs ? import <nixpkgs> {}, compiler ? "default" }:
 
 let
 
@@ -13,17 +13,15 @@ let
   );
 
   haskellPackages = (
-    if withHoogle
-      then  packageSet.override {
+    packageSet.override {
               overrides = (self: super:
                 {
-                  ghc = super.ghc // { withPackages = super.ghc.withHoogle; };
-                  sdl2 = pkgs.haskell.lib.dontCheck super.sdl2;
+                  ghc = super.ghc // { withPackages = super.ghc.withHoogle; }; # enable hoogle
+                  sdl2 = pkgs.haskell.lib.dontCheck super.sdl2; # fix for sdl2
                   ghcWithPackages = self.ghc.withPackages;
                 }
               );
             }
-      else  packageSet
   );
 
   drv = haskellPackages.callPackage f {};
