@@ -1,6 +1,6 @@
 {-# LANGUAGE OverloadedStrings  #-}
 
-module Main where
+module LazyFoo16 where
 
 import           SDL                            ( ($=) )
 import qualified SDL
@@ -71,3 +71,5 @@ main = do
   SDLTtf.free lazyFont
   SDLTtf.quit
   SDL.quit
+
+

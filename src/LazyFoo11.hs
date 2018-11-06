@@ -1,6 +1,6 @@
 {-# LANGUAGE OverloadedStrings  #-}
 
-module LazyFoo11 where
+module Main where
 
 import           SDL                            ( ($=) )
 import qualified SDL
@@ -94,5 +94,3 @@ main = do
   SDL.destroyRenderer renderer
   SDL.destroyWindow window
   SDL.quit
-
-
