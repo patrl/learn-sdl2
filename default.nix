@@ -1,5 +1,5 @@
-{ mkDerivation, base, sdl2, sdl2-image, sdl2-mixer, sdl2-ttf
-, stdenv, text
+{ mkDerivation, apecs, base, grid, lens, sdl2, sdl2-image
+, sdl2-mixer, sdl2-ttf, stdenv, text, vector
 }:
 mkDerivation {
   pname = "learn-sdl2";
@@ -8,7 +8,8 @@ mkDerivation {
   isLibrary = false;
   isExecutable = true;
   executableHaskellDepends = [
-    base sdl2 sdl2-image sdl2-mixer sdl2-ttf text
+    apecs base grid lens sdl2 sdl2-image sdl2-mixer sdl2-ttf text
+    vector
   ];
   license = stdenv.lib.licenses.bsd3;
 }
