@@ -25,6 +25,7 @@ executable lazyfoo
                        , grid == 7.8.10
                        , apecs == 0.6.0.0
                        , vector == 0.12.0.1
+                       , grid == 7.8.10
                        , lens == 4.16.1
                        , text
   hs-source-dirs:      src
